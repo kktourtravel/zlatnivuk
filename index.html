@@ -1,367 +1,553 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Zlatni Vuk – Coming Soon</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Joint Taxi Delivery | Partners & Couriers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+  <style>
+    :root {
+      --sky-blue: #3EC4FF;
+      --mint-teal: #000000;
+      --white: #FFFFFF;
+      --graphite: #1B1B1F;
+      --soft-gray: #F5F7FA;
+      --accent-orange: #FF8A3D;
+      --text-gray: #4A4F59;
+    }
 
-body {
-    font-family: "Playfair Display", serif;
-    background: #020202;
-    color: #f5f5f5;
-    height: 100vh;
-    overflow: hidden;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
 
-/* Rich luxury background */
-.bg {
-    position: fixed;
-    inset: 0;
-    background:
-        radial-gradient(circle at top, rgba(80, 80, 80, 0.5) 0, transparent 40%),
-        radial-gradient(circle at bottom, rgba(40, 30, 10, 0.4) 0, transparent 45%),
-        radial-gradient(circle at center, rgba(0, 0, 0, 0.9) 0, #020202 60%);
-    z-index: -4;
-}
-
-/* Two flake layers */
-.gold-flakes-bg,
-.gold-flakes-fg {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -3;
-}
-
-.flake {
-    position: absolute;
-    background: rgba(255, 215, 0, 0.85);
-    box-shadow: 0 0 14px rgba(255, 215, 0, 0.7);
-    opacity: 1;
-}
-
-/* Foreground vs background */
-.flake.fg {
-    animation: moveFg 24s linear infinite, shimmer 3.5s ease-in-out infinite, sparkle 4.5s ease-in-out infinite;
-}
-.flake.bg {
-    animation: moveBg 28s linear infinite, shimmer 4.5s ease-in-out infinite, sparkle 5.5s ease-in-out infinite;
-    filter: brightness(0.8);
-}
-
-/* 7 irregular shapes */
-.flake.shape1 { clip-path: polygon(10% 0%, 90% 10%, 100% 50%, 60% 100%, 20% 90%, 0% 40%); }
-.flake.shape2 { clip-path: polygon(0% 20%, 40% 0%, 90% 20%, 100% 60%, 70% 100%, 20% 80%); }
-.flake.shape3 { clip-path: polygon(20% 0%, 80% 10%, 100% 40%, 80% 90%, 30% 100%, 0% 60%); }
-.flake.shape4 { clip-path: polygon(0% 40%, 30% 0%, 90% 0%, 100% 50%, 70% 100%, 10% 90%); }
-.flake.shape5 { clip-path: polygon(10% 10%, 70% 0%, 100% 40%, 90% 90%, 40% 100%, 0% 60%); }
-.flake.shape6 { clip-path: polygon(10% 0%, 40% 0%, 90% 40%, 70% 60%, 40% 100%, 15% 90%, 0% 40%); }
-.flake.shape7 { clip-path: polygon(0% 30%, 30% 0%, 80% 10%, 100% 40%, 90% 80%, 40% 100%, 10% 80%); }
-
-/* Full 360° movement + slow multi-axis rotation */
-@keyframes moveFg {
-    0% { transform: translate(0, 0) rotateX(0deg) rotateY(0deg) rotate(0deg); }
-    100% { transform: translate(var(--dx), var(--dy)) rotateX(18deg) rotateY(26deg) rotate(360deg); }
-}
-@keyframes moveBg {
-    0% { transform: translate(0, 0) rotateX(0deg) rotateY(0deg) rotate(0deg); }
-    100% { transform: translate(calc(var(--dx) * 0.6), calc(var(--dy) * 0.6)) rotateX(12deg) rotateY(18deg) rotate(360deg); }
-}
-
-/* Gold shimmer pulse */
-@keyframes shimmer {
-    0% { filter: brightness(0.85); }
-    50% { filter: brightness(1.2); }
-    100% { filter: brightness(0.85); }
-}
-
-/* Warm gold sparkle */
-@keyframes sparkle {
-    0% { box-shadow: 0 0 12px rgba(255, 215, 0, 0.5); }
-    50% { box-shadow: 0 0 26px rgba(255, 215, 0, 0.95); }
-    100% { box-shadow: 0 0 12px rgba(255, 215, 0, 0.5); }
-}
-
-/* Center wrapper */
-.wrapper {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 20px;
-    position: relative;
-    z-index: 10;
-}
-
-/* Emblem with softer glow */
-.logo-circle {
-    width: 160px;
-    height: 160px;
-    margin: 0 auto 30px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 215, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(255, 215, 0, 0.25);
-}
-
-.logo-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.6));
-}
-
-/* Text styling */
-.brand {
-    font-size: 148px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: #ffd700;
-    margin-bottom: 12px;
-}
-
-.subtitle-main {
-    font-size: 42px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: #c9a44b;
-    margin-bottom: 14px;
-}
-
-.subtitle-line {
-    font-size: 38px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #b08b3c;
-    margin-bottom: 30px;
-}
-
-/* WHITE COMING SOON BANNER */
-.coming-banner {
-    display: inline-block;
-    padding: 14px 32px;
-    background: #ffffff;
-    color: #000000;
-    font-size: 30px;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    border-radius: 999px;
-    border: 2px solid rgba(255, 215, 0, 0.8);
-    box-shadow: 0 0 22px rgba(255, 215, 0, 0.35);
-    margin: 0 auto 40px;
-}
-
-/* Contact */
-.email-text {
-    font-size: 13px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #a0a0a0;
-    margin-bottom: 10px;
-}
-
-.email-link {
-    font-size: 14px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #ffd700;
-    text-decoration: none;
-}
-
-.email-link:hover { color: #ffe58a; }
-
-/* Signup form */
-.signup-form {
-    margin-top: 25px;
-    display: inline-flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.signup-input {
-    padding: 10px 14px;
-    min-width: 300px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 215, 0, 0.4);
-    background: rgba(10, 10, 10, 0.9);
-    color: #f5f5f5;
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    outline: none;
-}
-
-.signup-input::placeholder {
-    color: #777;
-    text-transform: uppercase;
-}
-
-.signup-button {
-    padding: 10px 22px;
-    border-radius: 999px;
-    border: none;
-    background: linear-gradient(135deg, #b68b2f, #ffd700);
-    color: #050505;
-    font-size: 13px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0 0 18px rgba(255, 215, 0, 0.35);
-}
-
-.signup-button:hover { filter: brightness(1.08); }
-
-/* MOBILE VIEW */
-@media (max-width: 768px) {
-
+    /* FIXED HEADER */
     body {
-        overflow-y: auto;
-        padding-bottom: 40px;
+      background: var(--soft-gray);
+      color: var(--graphite);
+      padding-top: 92px;
     }
 
-    .wrapper {
-        padding: 40px 10px;
-        height: auto;
+    header {
+      background: var(--mint-teal);
+      color: var(--white);
+      padding: 16px 62px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
     }
 
-    .logo-circle {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 20px;
+   .logo-img {
+  height: 55px;
+  width: auto;
+  display: block;
+}
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 700;
     }
 
-    .brand {
-        font-size: 48px;
-        letter-spacing: 0.18em;
-        margin-bottom: 8px;
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--mint-teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
     }
 
-    .subtitle-main {
-        font-size: 24px;
-        letter-spacing: 0.16em;
-        margin-bottom: 10px;
+
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 0.95rem;
+      opacity: 0.9;
     }
 
-    .subtitle-line {
-        font-size: 18px;
-        letter-spacing: 0.12em;
-        margin-bottom: 20px;
-        padding: 0 10px;
+    nav a:hover {
+      opacity: 1;
     }
 
-    .coming-banner {
-        font-size: 18px;
-        padding: 10px 22px;
-        letter-spacing: 0.22em;
-        margin-bottom: 30px;
+    /* PARTNER HERO */
+    .partner-hero {
+      background: var(--accent-orange);
+      color: var(--white);
+      padding: 30px 05px;
+	padding-top: 15px;
+      text-align: center;
     }
 
-    .email-text {
-        font-size: 11px;
-        letter-spacing: 0.14em;
+    .partner-hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
     }
 
-    .email-link {
-        font-size: 13px;
-        letter-spacing: 0.12em;
+    .partner-hero p {
+      font-size: 1.05rem;
+      margin-bottom: 4px;
     }
 
-    .signup-form {
-        flex-direction: column;
-        gap: 12px;
-        width: 100%;
+    .btn-primary {
+      background: var(--graphite);
+      color: var(--white);
+      border: none;
+      padding: 12px 26px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    .signup-input {
-        min-width: unset;
-        width: 100%;
-        font-size: 12px;
-        padding: 10px 14px;
+    /* BENEFIT CARDS */
+    .benefits {
+      max-width: 1500px;
+      margin: 50px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
     }
 
-    .signup-button {
-        width: 100%;
-        font-size: 12px;
-        padding: 12px 20px;
-        letter-spacing: 0.14em;
+    .benefit-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
     }
 
-    .flake {
-        opacity: 0.8;
+    .benefit-img {
+      width: 100%;
+      height: 360px;
+      border-radius: 14px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 16px;
     }
+
+    .benefit-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .benefit-card p {
+      font-size: 0.95rem;
+      color: var(--text-gray);
+    }
+
+    /* DRIVE STRIP */
+    .drive-strip {
+      max-width: 1600px;
+      margin: 30px auto;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: var(--sky-blue);
+      color: var(--white);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .drive-strip-text h2 {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .drive-strip-text p {
+      font-size: 0.95rem;
+    }
+
+    .drive-strip button {
+      background: var(--white);
+      color: var(--mint-teal);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* BOTTOM CTA */
+    .bottom-cta {
+      max-width: 1100px;
+      margin: 30px auto 40px;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+.bottom-cta button {
+  cursor: default;        /* no hand cursor */
+  pointer-events: none;   /* disables clicking */
+  transition: none;       /* removes hover animation */
 }
 
-</style>
+.bottom-cta button:hover {
+  background: inherit;    /* no hover color change */
+  color: inherit;         /* no hover text change */
+}
+
+    .btn-dark {
+      background: var(--graphite);
+      color: var(--white);
+      padding: 12px 26px;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-light {
+      background: var(--white);
+      color: var(--mint-teal);
+      padding: 12px 26px;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* COURIER HERO */
+    .courier-hero-single-img {
+      background: var(--sky-blue);
+      color: var(--white);
+      text-align: center;
+      padding: 0px;
+    }
+
+    .courier-hero-banner {
+      width: 100%;
+      max-width: 5300px;
+      margin-bottom: 22px;
+      display: block;
+    }
+
+    .courier-hero-single-img .btn-primary {
+      margin-top: 30px;
+      margin-bottom: 40px;
+    }
+
+    /* COURIER GRID */
+    .courier-grid {
+      max-width: 1500px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+    }
+
+    .courier-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .courier-img {
+      width: 100%;
+      height: 380px;
+      border-radius: 14px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 16px;
+    }
+
+    .courier-img-1 {
+      background-image: url('pexels-limonovdigital-8766372.jpg');
+    }
+
+    .courier-img-2 {
+      background-image: url('surprising_media-man-8134590.jpg');
+    }
+
+    /* FOOTER */
+    .jtd-footer {
+      background: var(--graphite);
+      color: var(--white);
+      padding: 50px 20px 30px;
+      margin-top: 60px;
+    }
+
+    .footer-top {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      flex: 1 1 260px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo .logo-mark {
+      width: 40px;
+      height: 40px;
+      background: var(--mint-teal);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .footer-apps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .app-btn {
+      background: var(--white);
+      color: var(--graphite);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .appstore::before {
+      content: " ";
+    }
+
+    .googleplay::before {
+      content: "▶ ";
+    }
+
+    .footer-columns {
+      flex: 3 1 600px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 30px;
+    }
+
+    .footer-col h4 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .footer-col a {
+      display: block;
+      color: var(--white);
+      opacity: 0.85;
+      text-decoration: none;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .footer-col a:hover {
+      opacity: 1;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 900px) {
+      .footer-columns {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .footer-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
-<div class="gold-flakes-bg" id="flakes-bg"></div>
-<div class="gold-flakes-fg" id="flakes-fg"></div>
+<header>
+   <div class="logo">
+    <img src="logo.png" class="logo-img">
+    <span class="brand-name">Joint Taxi Delivery</span>
+  </div>
 
-<div class="wrapper">
-    <div>
+  <nav>
+    <a href="#"></a>
+    
+  </nav>
+</header>
 
-        <div class="logo-circle">
-            <img src="Zlatnavuk-removebg-preview.png" alt="Zlatni Vuk Emblem">
-        </div>
+<!-- PARTNERS SECTION -->
+<section class="partner-hero">
+  <p>For restaurants and stores</p>
+  <h1>Let’s grow your business together</h1>
+  <p>Join Joint Taxi Delivery and reach more customers across Minsk with fast, reliable delivery.</p>
+  <button class="btn-primary">Get started</button>
+</section>
 
-        <div class="brand">ZLATNI VUK</div>
-        <div class="subtitle-main">PREMIUM BRANDY</div>
-        <div class="subtitle-line">HANDCRAFTED IN SERBIA • 24KT GOLD LEAF</div>
+<section class="benefits">
 
-        <div class="coming-banner">COMING SOON</div>
+  <div class="benefit-card">
+    <div class="benefit-img" style="background-image: url('pexels-n-voitkevich-8939504.jpg');"></div>
+    <h2>Boost your sales</h2>
+    <p>Most orders through Joint Taxi Delivery are extra sales you wouldn’t otherwise get.</p>
+  </div>
 
-        <div class="email-text">CONTACT</div>
-        <a class="email-link" href="mailto:info@zlatnivuk.com">INFO@ZLATNIVUK.COM</a>
-
-        <form class="signup-form">
-            <input type="email" class="signup-input" placeholder="JOIN THE LAUNCH LIST" />
-            <button type="submit" class="signup-button">Notify Me</button>
-        </form>
-
-    </div>
+  <div class="benefit-card">
+    <div class="benefit-img" style="background-image: url('pexels-arina-dmitrieva-66352626-11116005.jpg');"></div>
+    <h2>Delivery made effortless</h2>
+    <p>We handle delivery logistics and customer support.</p>
 </div>
 
+  <div class="benefit-card">
+    <div class="benefit-img" style="background-image: url('anemone123-team-spirit-2447163_1920.jpg');"></div>
+    <h2>Risk‑free partnership</h2>
+    <p>No fee for joining. You can leave anytime. When you earn, we earn.</p>
+  </div>
+
+  
+
+</section>
+
+<section class="drive-strip">
+  <div class="drive-strip-text">
+    <h2>Power online sales with fast deliveries</h2>
+    <p>Use Joint Taxi Delivery logistics to offer affordable, same‑hour delivery for your web shop.</p>
+  </div>
+  
+</section>
+
+<section class="bottom-cta">
+  <button class="btn-dark">Reach new customers and get more orders</button>
+  <button class="btn-light">Become a store partner</button>
+</section>
+
+<!-- COURIER SECTION -->
+<section class="courier-hero courier-hero-single-img">
+
+  <img src="Untitled design.png" alt="Courier Banner" class="courier-hero-banner">
+
+  <p>For couriers</p>
+  <h1>EARN WHEN AND WHERE YOU WANT</h1>
+  <p>Flexible courier work across Minsk with great earnings and full freedom.</p>
+
+  <button class="btn-primary">Get started</button>
+</section>
+
+<section class="courier-grid">
+  <div class="courier-card">
+    <div class="courier-img courier-img-1"></div>
+    <h2>Competitive earnings</h2>
+    <p>The more you deliver, the more you earn. Paid per delivery + distance.</p>
+      </div>
+
+  <div class="courier-card">
+    <div class="courier-img courier-img-2"></div>
+    <h2>Flexible hours</h2>
+    <p>Choose your own schedule. No experience required.</p>
+     </div>
+</section>
+
+<!-- FULL FOOTER -->
+<footer class="jtd-footer">
+
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-mark">J</div>
+        <span>Joint Taxi Delivery</span>
+      </div>
+
+      
+
+    <div class="footer-columns">
+
+      <div class="footer-col">
+        <h4>Partner with JTD</h4>
+        <a href="#">For couriers</a>
+        <a href="#">For restaurants</a>
+        <a href="#">For stores</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About us</a>
+        <a href="#">What we stand for</a>
+        <a href="#">Jobs</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Security</a>
+        <a href="#">Community Standards</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="#">JTD Drive</a>
+        <a href="#">JTD Market</a>
+        <a href="#">JTD+</a>
+        <a href="#">JTD for Work</a>
+        <a href="#">JTD Ads</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Useful links</h4>
+        <a href="#">Support</a>
+        <a href="#">Newsroom</a>
+        <a href="#">Contact</a>
+        <a href="#">Speak up</a>
+        <a href="#">Promo codes</a>
+        <a href="#">Developers</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Follow us</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">X</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">YouTube</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © <span id="year"></span> Joint Taxi Delivery — jointaxidelivery.by
+  </div>
+
+</footer>
+
 <script>
-const bgContainer = document.getElementById("flakes-bg");
-const fgContainer = document.getElementById("flakes-fg");
-const shapes = ["shape1", "shape2", "shape3", "shape4", "shape5", "shape6", "shape7"];
-
-function createFlake(layer) {
-    const flake = document.createElement("div");
-    flake.classList.add("flake", layer);
-    flake.classList.add(shapes[Math.floor(Math.random() * shapes.length)]);
-
-    const sizeBase = layer === "fg" ? 10 : 4;
-    const sizeVar = layer === "fg" ? 24 : 14;
-    const size = sizeBase + Math.random() * sizeVar;
-    flake.style.width = size + "px";
-    flake.style.height = size + "px";
-
-    const x = Math.random() * 100;
-    const y = Math.random() * 100;
-    flake.style.left = x + "%";
-    flake.style.top = y + "%";
-
-    const dx = (Math.random() * 200 - 100) + "vw";
-    const dy = (Math.random() * 200 - 100) + "vh";
-    flake.style.setProperty("--dx", dx);
-    flake.style.setProperty("--dy", dy);
-
-    return flake;
-}
-
-for (let i = 0; i < 150; i++) bgContainer.appendChild(createFlake("bg"));
-for (let i = 0; i < 71; i++) fgContainer.appendChild(createFlake("fg"));
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
